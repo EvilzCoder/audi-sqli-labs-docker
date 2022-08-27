@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+        - 80:80
+    volumes:
+        - ./:/var/www/html/
+
+  mysql:
+    image: mysql:5.7.17
+    volumes:
+      - ./db_data:/var/lib/mysql
+    # restart: no
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "nowR00tme!"
+      MYSQL_DATABASE: security
+      #MYSQL_USER: wp
+      #MYSQL_PASSWORD: wp2017
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: "dev_phpmyadmin"
+    restart: always
+    ports:
+      - 9090:9090
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306

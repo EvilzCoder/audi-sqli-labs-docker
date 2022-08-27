@@ -10,6 +10,7 @@ services:
 
   mysql:
     image: mysql:5.7.17
+    command: --secure-file-priv=''
     volumes:
       - ./db_data:/var/lib/mysql
     # restart: no
